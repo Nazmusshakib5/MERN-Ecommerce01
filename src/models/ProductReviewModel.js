@@ -7,5 +7,5 @@ const DataSchema=mongoose.Schema({
     rating:{type:String,required:true}
 },{timestamps:true,versionKey:false})
 
-const ReviewModel=mongoose.model('reviews',DataSchema)
-module.exports=ReviewModel;
+const ProductReviewModel=mongoose.model('productreviews',DataSchema)
+module.exports=ProductReviewModel;
