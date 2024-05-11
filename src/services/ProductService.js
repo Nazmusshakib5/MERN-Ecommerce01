@@ -120,7 +120,6 @@ const ListBySimilarService=async (req)=>{
         return {status:'failed',data:e.toString()}
     }
 }
-
 const ListByKeywordService=async (req)=>{
     try{
         let searchRegex={"$regex":req.params.Keyword,"$options":"i"}
@@ -177,8 +176,23 @@ const ProductDetailService=async (req)=>{
     }
 }
 
-const ReviewListService=async ()=>{
+const ReviewListService=async (req)=>{
+ try{
+     const ProductID=new ObjectId(req.params.ProductID)
+     let matchingStage={$match:{productID:ProductID}}
+     let joinWithProfileStage={$lookup:{from:'profiles',localField:'userID',foreignField:'userID',as:'profile'}}
+     let unwindProfileStage={$unwind:'$profile'}
+     let projectionStage={$project:{'des':1,'rating':1,'profile.cus_name':1}}
 
+     const data=await ProductReviewModel.aggregate([
+         matchingStage,joinWithProfileStage,
+         unwindProfileStage,projectionStage
+     ]);
+     return {status:'success',data:data}
+
+ }catch (e) {
+     return {status:'failed',data:e.toString()}
+ }
 }
 
 module.exports={
