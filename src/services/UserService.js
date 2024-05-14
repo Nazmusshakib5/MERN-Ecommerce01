@@ -1,6 +1,7 @@
 const EmailSend=require('../utility/EmailHelper')
 const TokenHelper = require('../utility/TokenHelper')
 const UserModel=require('../models/UserModel')
+const ProfileModel=require('../models/ProfileModel')
 
 const UserOtpService=async (req)=>{
     try{
@@ -40,13 +41,14 @@ const VerifyLoginOtpService=async (req)=>{
 }
 
 
-const CreateProfileService=async (req)=>{
-
+const SaveProfileService=async (req)=>{
+    let userId=req.headers.userId;
+    let reqBody=req.body;
+    reqBody.userID=userId;
+    let data= await ProfileModel.updateOne({userID:userId},{$set:reqBody},{upsert:true})
+    return {status:'success',msg:'Data Saved Successfully',data:data}
 }
 
-const UpdateProfileService=async (req)=>{
-
-}
 
 const ReadProfileService=async (req)=>{
 
@@ -55,7 +57,6 @@ const ReadProfileService=async (req)=>{
 module.exports={
     UserOtpService,
     VerifyLoginOtpService,
-    CreateProfileService,
-    UpdateProfileService,
+    SaveProfileService,
     ReadProfileService
 }

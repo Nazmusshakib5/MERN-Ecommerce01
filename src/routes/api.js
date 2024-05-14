@@ -25,4 +25,8 @@ router.get('/VerifyLogin/:email/:otp',UserController.VerifyLogin)
 router.get('/UserLogout',authMiddleWare,UserController.UserLogout)
 
 
+router.get('/CreateProfile',authMiddleWare,UserController.CreateProfile)
+router.get('/UpdateProfile',authMiddleWare,UserController.UpdateProfile)
+
+
 module.exports=router;
