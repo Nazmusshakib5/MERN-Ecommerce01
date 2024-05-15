@@ -1,5 +1,5 @@
 const {UserOtpService} = require("../services/UserService");
-const {VerifyLoginOtpService,SaveProfileService} = require("../services/UserService");
+const {VerifyLoginOtpService,SaveProfileService,ReadProfileService} = require("../services/UserService");
 
 
 exports.UserOtp=async (req,res)=>{
@@ -38,5 +38,6 @@ exports.UpdateProfile=async (req,res)=>{
 }
 
 exports.ReadProfile=async (req,res)=>{
-
+    const data=await ReadProfileService(req)
+    return res.status(200).json(data);
 }

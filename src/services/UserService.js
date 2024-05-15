@@ -42,16 +42,28 @@ const VerifyLoginOtpService=async (req)=>{
 
 
 const SaveProfileService=async (req)=>{
-    let userId=req.headers.userId;
-    let reqBody=req.body;
-    reqBody.userID=userId;
-    let data= await ProfileModel.updateOne({userID:userId},{$set:reqBody},{upsert:true})
-    return {status:'success',msg:'Data Saved Successfully',data:data}
+    try{
+        let userId=req.headers.userId;
+        let reqBody=req.body;
+        reqBody.userID=userId;
+        let data= await ProfileModel.updateOne({userID:userId},{$set:reqBody},{upsert:true})
+        return {status:'success',msg:'Data Saved Successfully',data:data}
+
+    }catch (e) {
+        return {status:'failed',msg:'Profile is not created'}
+    }
 }
 
 
 const ReadProfileService=async (req)=>{
+    try{
+        let userId=req.headers.userId;
+        let data=await ProfileModel.find({userID:userId});
+        return {status:'success',msg:'Profile read Successfully',data:data}
 
+    }catch (e) {
+        return {status:'failed',msg:'Profile can not read'}
+    }
 }
 
 module.exports={
