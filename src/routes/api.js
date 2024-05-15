@@ -41,7 +41,7 @@ router.get('/ReadWishList',authMiddleWare,WishController.ReadWishList)
 router.post('/SaveCartList',authMiddleWare,CartController.SaveCartList)
 router.post('/RemoveCartList',authMiddleWare,CartController.RemoveCartList)
 router.get('/ReadCartList',authMiddleWare,CartController.ReadCartList)
-router.get('/UpdateCartList',authMiddleWare,CartController.UpdateCartList)
+router.post('/UpdateCartList',authMiddleWare,CartController.UpdateCartList)
 
 
 module.exports=router;
