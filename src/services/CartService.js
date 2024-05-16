@@ -29,6 +29,15 @@ const RemoveCartListService=async (req)=>{
 }
 
 const UpdateCartListService=async (req)=>{
+    try{
+        let userId=req.headers.userId;
+        let cartId=req.params.cartId;
+        let reqBody=req.body;
+        let data=await CartModel.updateOne({userID:userId,_id:cartId},{$set:reqBody});
+        return {status:'success',msg:'cart List updated Successfully',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'cart List not Removed',err:e.toString()}
+    }
 
 }
 
