@@ -7,6 +7,7 @@ const ProductModel=require('../models/ProductModel')
 const ProductReviewModel=require('../models/ProductReviewModel')
 const ProductSliderModel=require('../models/ProductSliderModel')
 
+
 const mongoose=require('mongoose')
 const ObjectId=mongoose.Types.ObjectId;
 
@@ -195,6 +196,20 @@ const ReviewListService=async (req)=>{
  }
 }
 
+const CreateReviewService=async (req)=>{
+    try{
+        const userId=req.headers.userId;
+        const reqBody=req.body;
+        reqBody.userID=userId;
+        const data=await ProductReviewModel.create(reqBody)
+        return {status:'success',data:data}
+
+    }catch (e) {
+        return {status:'failed',data:e.toString()}
+    }
+}
+
+
 module.exports={
     BrandListService,
     CategoryListService,
@@ -205,5 +220,6 @@ module.exports={
     ListByKeywordService,
     ListByRemarkService,
     ProductDetailService,
-    ReviewListService
+    ReviewListService,
+    CreateReviewService
 }

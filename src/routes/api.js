@@ -4,6 +4,7 @@ const UserController=require('../controllers/UserController')
 const WishController=require('../controllers/WishController')
 const CartController=require('../controllers/CartController')
 const InvoiceController=require('../controllers/InvoiceController')
+const FeatureController=require('../controllers/FeatureController')
 const authMiddleWare=require('../middlewares/authMiddleWare')
 
 const router=express.Router()
@@ -45,10 +46,20 @@ router.get('/ReadCartList',authMiddleWare,CartController.ReadCartList)
 router.post('/UpdateCartList/:cartId',authMiddleWare,CartController.UpdateCartList)
 
 
-//Invoice
+//Invoice and Payment
 router.get('/CreateInvoice',authMiddleWare,InvoiceController.CreateInvoice)
+router.get('/InvoiceList',authMiddleWare,InvoiceController.InvoiceList)
+router.get('/InvoiceProductList/:invoice_id',authMiddleWare,InvoiceController.InvoiceProductList)
 
+router.post('/PaymentSuccess/:transID',InvoiceController.PaymentSuccess)
+router.post('/PaymentFail/:transID',InvoiceController.PaymentFail)
+router.post('/PaymentCancel/:transID',InvoiceController.PaymentCancel)
+router.post('/PaymentIPN/:transID',InvoiceController.PaymentIPN)
 
+//FeatureList
+router.get('/FeaturesList',FeatureController.FeaturesList)
 
+//Create Review
+router.post('/CreateReview',authMiddleWare,ProductController.CreateReview)
 
 module.exports=router;

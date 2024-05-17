@@ -81,34 +81,138 @@ const CreateInvoiceService=async (req)=>{
         //Delete All the Cart Items
         await CartModel.deleteMany({userID:userId})
 
-        return {status:'success',msg:'Invoice Created',data:Invoice}
+
+
+        //SSL Commerce
+        let paymentSettings=await PaymentSettingModel.find();
+
+        const form=new formData()
+        form.append('store_id',paymentSettings[0]['store_id'])
+        form.append('store_passwd',paymentSettings[0]['store_passwd'])
+        form.append('total_amount',payable.toString())
+        form.append('currency',paymentSettings[0]['currency'])
+        form.append('tran_id',trans_id)
+        form.append('success_url',`${paymentSettings[0]['success_url']}/${trans_id}`)
+        form.append('fail_url',`${paymentSettings[0]['fail_url']}/${trans_id}`)
+        form.append('cancel_url',`${paymentSettings[0]['cancel_url']}/${trans_id}`)
+        form.append('ipn_url',`${paymentSettings[0]['ipn_url']}/${trans_id}`)
+
+
+        form.append('cus_name',profile[0]['cus_name'])
+        form.append('cus_email',cus_email)
+        form.append('cus_add1',profile[0]['cus_add'])
+        form.append('cus_add2',profile[0]['cus_add'])
+        form.append('cus_city',profile[0]['cus_city'])
+        form.append('cus_state',profile[0]['cus_state'])
+        form.append('cus_postcode',profile[0]['cus_postcode'])
+        form.append('cus_country',profile[0]['cus_country'])
+        form.append('cus_phone',profile[0]['cus_phone'])
+        form.append('cus_fax',profile[0]['cus_fax'])
+
+
+
+        form.append('shipping_method','YES')
+
+
+        form.append('ship_name',profile[0]['ship_name'])
+        form.append('ship_add1',profile[0]['ship_add'])
+        form.append('ship_add2',profile[0]['ship_add'])
+        form.append('ship_city',profile[0]['ship_city'])
+        form.append('ship_state',profile[0]['ship_state'])
+        form.append('ship_country',profile[0]['ship_country'])
+        form.append('ship_postcode',profile[0]['ship_postcode'])
+        form.append('product_name','According to invoice')
+        form.append('product_category','According to invoice')
+        form.append('product_profile','According to invoice')
+        form.append('product_amount','According to invoice')
+
+        let SSLres=await axios.post(paymentSettings[0]['init_url'],form)
+
+
+
+        return {status:'success',msg:'Invoice Created',data:SSLres.data}
 
     }catch (e) {
         return {status:'failed',msg:'Invoice not Created',err:e.toString()}
     }
 }
 
+
+
+const PaymentSuccessService=async (req)=>{
+    try{
+        const transId=req.params.transID;
+        await InvoiceModel.updateOne({tran_id:transId},{payment_status:'success'})
+        return {status:'success'}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
+}
+
 const PaymentFailService=async (req)=>{
+    try{
+        const transId=req.params.transID;
+        await InvoiceModel.updateOne({tran_id:transId},{payment_status:'failed'})
+        return {status:'failed'}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
 
 }
 
 const PaymentCancelService=async (req)=>{
+    try{
+        const transId=req.params.transID;
+        await InvoiceModel.updateOne({tran_id:transId},{payment_status:'cancel'})
+        return {status:'cancel'}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
 
 }
 
 const PaymentIPNService=async (req)=>{
-
+    try{
+        const transId=req.params.transID;
+        const status=req.body['status'];
+        await InvoiceModel.updateOne({tran_id:transId},{payment_status:status})
+        return {status:'IPN'}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
 }
 
 const InvoiceListService=async (req)=>{
-
-}
-
-const PaymentSuccessService=async (req)=>{
+    try{
+        const userId=req.headers.userId;
+        const data = await InvoiceModel.find({userID:userId})
+        return {status:'success',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
 
 }
 
 const InvoiceProductListService=async (req)=>{
+
+    try{
+        const userId=new ObjectId(req.headers.userId);
+        const invoice_id=new ObjectId(req.params.invoice_id);
+
+        let matchingStage={$match:{userID:userId,invoiceID:invoice_id}}
+        let joinWithProduct={$lookup:{from:'products',localField:'productID',foreignField:'_id',as:'product'}}
+        let unwindProduct={$unwind:'$product'}
+
+        const data = await InvoiceProductModel.aggregate([
+            matchingStage,
+            joinWithProduct,
+            unwindProduct
+        ])
+        return {status:'success',data:data}
+    }catch (e) {
+        return {status:'failed',msg:'Invoice not Created',err:e.toString()}
+    }
+
 
 }
 
