@@ -3,6 +3,7 @@ const ProductController=require('../controllers/ProductController')
 const UserController=require('../controllers/UserController')
 const WishController=require('../controllers/WishController')
 const CartController=require('../controllers/CartController')
+const InvoiceController=require('../controllers/InvoiceController')
 const authMiddleWare=require('../middlewares/authMiddleWare')
 
 const router=express.Router()
@@ -42,6 +43,12 @@ router.post('/SaveCartList',authMiddleWare,CartController.SaveCartList)
 router.post('/RemoveCartList',authMiddleWare,CartController.RemoveCartList)
 router.get('/ReadCartList',authMiddleWare,CartController.ReadCartList)
 router.post('/UpdateCartList/:cartId',authMiddleWare,CartController.UpdateCartList)
+
+
+//Invoice
+router.get('/CreateInvoice',authMiddleWare,InvoiceController.CreateInvoice)
+
+
 
 
 module.exports=router;
