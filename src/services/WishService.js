@@ -33,9 +33,9 @@ const ReadWishListService=async (req)=>{
             projectionStage
         ])
 
-        return {status:'success',msg:'Wish List showed Successfully',data:data}
+        return {status:'success',msg:'wish List showed Successfully',data:data}
     }catch (e) {
-        return {status:'failed',msg:'Wish not found',err:e.toString()}
+        return {status:'failed',msg:'wish not found',err:e.toString()}
     }
 }
 
@@ -45,9 +45,9 @@ const SaveWishListService=async (req)=>{
         let reqBody=req.body;
         reqBody.userID=userId;
         let data=await WishModel.updateOne(reqBody,{$set:reqBody},{upsert:true})
-        return {status:'success',msg:'Wish List added Successfully',data:data}
+        return {status:'success',msg:'wish List added Successfully',data:data}
     }catch (e) {
-        return {status:'failed',msg:'Wish List not added',err:e.toString()}
+        return {status:'failed',msg:'wish List not added',err:e.toString()}
     }
 }
 
@@ -57,7 +57,7 @@ const RemoveWishListService=async (req)=>{
         let reqBody=req.body;
         reqBody.userID=userId;
         await WishModel.deleteOne(reqBody)
-        return {status:'success',msg:'Wish List Deleted Successfully'}
+        return {status:'success',msg:'wish List Deleted Successfully'}
     }catch (e) {
         return {status:'failed',msg:'Remove Failed',err:e.toString()}
     }

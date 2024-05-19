@@ -33,7 +33,7 @@ router.post('/UpdateProfile',authMiddleWare,UserController.UpdateProfile)
 router.get('/ReadProfile',authMiddleWare,UserController.ReadProfile)
 
 
-//Wish List
+//wish List
 router.post('/SaveWishList',authMiddleWare,WishController.SaveWishList)
 router.post('/RemoveWishList',authMiddleWare,WishController.RemoveWishList)
 router.get('/ReadWishList',authMiddleWare,WishController.ReadWishList)
