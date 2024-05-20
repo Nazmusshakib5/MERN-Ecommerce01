@@ -8,8 +8,8 @@ const FeatureSkeleton = () => {
             <div className="row">
 
                 {
-                    Array.from({length:4}).map(()=> {
-                        return(<div className="col-6 p-2 col-md-3 col-lg-3 col-sm-6">
+                    Array.from({length:4}).map((item,i)=> {
+                        return(<div key={i} className="col-6 p-2 col-md-3 col-lg-3 col-sm-6">
                             <div className="card shadow-sm">
                                 <div className="card-body">
                                     <div className="row">
