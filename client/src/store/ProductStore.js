@@ -32,6 +32,26 @@ const ProductStore=create((set)=>({
         if(res.data['status']==='success'){
             set({ProductListByRemark:res.data['data']})
         }
+    },
+
+    ProductLists:null,
+    ProductListByBrandRequest:async (BrandId)=>{
+        const res= await axios.get(`/api/v1/ProductListByBrand/${BrandId}`)
+        if(res.data['status']==='success'){
+            set({ProductLists:res.data['data']})
+        }
+    },
+    ProductListByCategoryRequest:async (CategoryId)=>{
+        const res= await axios.get(`/api/v1/ProductListByCategory/${CategoryId}`)
+        if(res.data['status']==='success'){
+            set({ProductLists:res.data['data']})
+        }
+    },
+    ProductListByKeywordRequest:async (Keyword)=>{
+        const res= await axios.get(`/api/v1/ProductListByKeyword/${Keyword}`)
+        if(res.data['status']==='success'){
+            set({ProductLists:res.data['data']})
+        }
     }
 
 }))
