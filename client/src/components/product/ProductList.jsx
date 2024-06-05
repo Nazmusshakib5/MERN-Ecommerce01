@@ -6,7 +6,6 @@ import ProductSkeleton from "../../skeleton/ProductSkeleton.jsx";
 
 const ProductList = () => {
     const {ProductLists} = productStore()
-    console.log(ProductLists)
     return (
         <div className='container mt-2'>
             <div className='row'>

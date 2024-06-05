@@ -209,6 +209,63 @@ const CreateReviewService=async (req)=>{
     }
 }
 
+const ProductFilterService=async (req)=>{
+    try{
+
+        const reqBody=req.body
+
+        let matchCondition={}
+
+        if(reqBody['categoryID']){
+            matchCondition.categoryID=new ObjectId(reqBody['categoryID'])
+        }
+        if(reqBody['brandID']){
+            matchCondition.brandID=new ObjectId(reqBody['brandID'])
+        }
+
+        let MatchStage={$match:matchCondition}
+        let addFieldStage={
+            $addFields:{
+                IntPrice:{$toInt:'$price'}
+            }
+        }
+
+        const priceMin=parseInt(reqBody['priceMin'])
+        const priceMax=parseInt(reqBody['priceMax'])
+
+        let priceMatchCondition={}
+
+        if(!isNaN(priceMin)){
+            priceMatchCondition['IntPrice']={$gte:priceMin}
+        }
+
+        if(!isNaN(priceMax)){
+            priceMatchCondition['IntPrice']={...(priceMatchCondition['IntPrice'] || {}),$lte:priceMax}
+        }
+
+        let priceMatchStage={$match:priceMatchCondition}
+
+        let joinWithBrandStage={$lookup:{from:'brands',localField:'brandID',foreignField:'_id',as:'brand'}}
+        let joinWithCategoryStage={$lookup:{from:'categories',localField:'categoryID',foreignField:'_id',as:'category'}}
+        let unwindBrandStage={$unwind:'$brand'}
+        let unwindCategoryStage={$unwind:'$category'}
+        let projectionStage={$project:{'brandID':0,'categoryID':0,'brand._id':0,'category._id':0}}
+
+        let data=await ProductModel.aggregate([
+            MatchStage,
+            addFieldStage,
+            priceMatchStage,
+            joinWithBrandStage,joinWithCategoryStage,
+            unwindBrandStage,unwindCategoryStage,
+            projectionStage
+        ])
+
+        return {status:'success',data:data}
+    }catch (e) {
+        return {status:'failed',data:e.toString()}
+    }
+}
+
 
 module.exports={
     BrandListService,
@@ -221,5 +278,6 @@ module.exports={
     ListByRemarkService,
     ProductDetailService,
     ReviewListService,
-    CreateReviewService
+    CreateReviewService,
+    ProductFilterService
 }

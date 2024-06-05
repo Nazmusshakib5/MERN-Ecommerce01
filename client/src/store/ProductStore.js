@@ -52,6 +52,10 @@ const ProductStore=create((set)=>({
         if(res.data['status']==='success'){
             set({ProductLists:res.data['data']})
         }
+    },
+    SearchProducts:'',
+    SetSearchProducts:async (keyword)=>{
+        set({SearchProducts:keyword})
     }
 
 }))
