@@ -61,6 +61,7 @@ const ProductStore=create((set)=>({
     },
     details:null,
     ProductDetailsList:async (id)=>{
+        set({details:null})
         const res= await axios.get(`/api/v1/ProductDetails/${id}`)
         if(res.data['status']==='success'){
             set({details:res.data['data']})
@@ -68,6 +69,7 @@ const ProductStore=create((set)=>({
     },
     reviews:null,
     ProductReviewsList:async (id)=>{
+        set({reviews:null})
         const res= await axios.get(`/api/v1/ProductReviewList/${id}`)
         if(res.data['status']==='success'){
             set({reviews:res.data['data']})
