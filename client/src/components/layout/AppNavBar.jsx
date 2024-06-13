@@ -53,7 +53,7 @@ const AppNavBar = () => {
                     <div className=" d-lg-flex">
                         <div className="input-group">
                             <input onChange={(e)=>{SetSearchProducts(e.target.value)}} className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-                            <Link to={`/ByKeyword/${SearchProducts}`}  className="btn btn-outline-dark">
+                            <Link to={SearchProducts?(`/ByKeyword/${SearchProducts}`):('/')}  className="btn btn-outline-dark">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                      stroke="currentColor" style={{height:24,width:24}}>
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>

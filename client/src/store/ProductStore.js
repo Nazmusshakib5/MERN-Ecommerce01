@@ -53,6 +53,28 @@ const ProductStore=create((set)=>({
             set({ProductLists:res.data['data']})
         }
     },
+    ProductListByFiltering:async (filter)=>{
+        const res= await axios.post(`/api/v1/ProductFilterList`,filter)
+        if(res.data['status']==='success'){
+            set({ProductLists:res.data['data']})
+        }
+    },
+    details:null,
+    ProductDetailsList:async (id)=>{
+        const res= await axios.get(`/api/v1/ProductDetails/${id}`)
+        if(res.data['status']==='success'){
+            set({details:res.data['data']})
+        }
+    },
+    reviews:null,
+    ProductReviewsList:async (id)=>{
+        const res= await axios.get(`/api/v1/ProductReviewList/${id}`)
+        if(res.data['status']==='success'){
+            set({reviews:res.data['data']})
+        }
+    },
+
+
     SearchProducts:'',
     SetSearchProducts:async (keyword)=>{
         set({SearchProducts:keyword})
