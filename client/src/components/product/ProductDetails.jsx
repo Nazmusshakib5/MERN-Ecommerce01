@@ -1,44 +1,61 @@
 import ProductStore from "../../store/ProductStore.js";
 import ProductImages from "./ProductImages.jsx";
 import DetailsSkeleton from "../../skeleton/DetailsSkeleton.jsx";
+import { useState} from "react";
 
 
 const ProductDetails = () => {
     const {details,reviews}=ProductStore()
+    const [quantity,setQuantity]=useState(1)
+    const QuantityPlus=()=>{
+        setQuantity(quantity=>quantity+1)
+    }
+    const QuantityMinus=()=>{
+        if(quantity>1){
+            setQuantity(quantity=>quantity-1)
+        }
+    }
+    console.log(details)
     return (
         <div>
-            {details===null?(<DetailsSkeleton/>): (<div>
+            {details===null?(<DetailsSkeleton/>):(details.length>0?(<div>
                 <div className="container mt-2">
                     <div className="row">
                         <div className="col-md-7 p-3">
                             <ProductImages/>
                         </div>
                         <div className="col-md-5 p-3">
-                            <h4>title</h4>
-                            <p className="text-muted bodySmal my-1">Category</p>
-                            <p className="text-muted bodySmal my-1">Brand</p>
-                            <p className="bodySmal mb-2 mt-1">shortDes</p>
-                            <span>
-<strike class="text-secondary">$price</strike> $discountPrice </span>
+                            <h4>{details[0]['title']}</h4>
+                            <p className="text-muted bodySmal my-1">{details[0]['category']['categoryName']}</p>
+                            <p className="text-muted bodySmal my-1">{details[0]['brand']['brandName']}</p>
+                            <p className="bodySmal mb-2 mt-1">{details[0]['shortDes']}</p>
+                            {
+                                details[0]['discount']?(<span className='bodyLarge'>Price : <strike className="text-secondary">{details[0]['price']}</strike>{details[0]['discountPrice']}</span>):(details[0]['price'])
+                            }
                             <div className="row">
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Size</label>
                                     <select className="form-control my-2 form-select">
-                                        <option value="">Size</option>
+                                        {details[0]['detail']['size'].split(',').map((item,i)=> {
+                                            return <option key={i} value={item}>{item}</option>
+                                        })}
                                     </select>
                                 </div>
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Color</label>
                                     <select className="form-control my-2 form-select">
-                                        <option value="">Color</option>
+                                        {details[0]['detail']['color'].split(',').map((item,i)=> {
+                                            return <option key={i} value={item}>{item}</option>
+                                        })}
                                     </select>
                                 </div>
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Quantity</label>
                                     <div className="input-group my-2">
-                                        <button className="btn btn-outline-secondary">-</button>
-                                        <input type="text" className="form-control bg-light text-center" readOnly/>
-                                        <button className="btn btn-outline-secondary">+</button>
+                                        <button className="btn btn-outline-secondary"
+                                                onClick={QuantityMinus}>-</button>
+                                        <input value={quantity} type="text" className="form-control bg-light text-center" readOnly/>
+                                        <button onClick={QuantityPlus} className="btn btn-outline-secondary">+</button>
                                     </div>
                                 </div>
                                 <div className="col-4 p-2">
@@ -80,7 +97,11 @@ const ProductDetails = () => {
                         </div>
                     </div>
                 </div>
-            </div>)}
+            </div>):(<div className="row">
+                <div className='col-12 text-center mt-5 bodyXLarge'>
+                    No Details Available
+                </div>
+            </div>))}
         </div>
     );
 };
