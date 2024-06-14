@@ -3,6 +3,7 @@ import ProductDetails from "../components/product/ProductDetails.jsx";
 import {useParams} from "react-router-dom";
 import {useEffect} from "react";
 import productStore from "../store/ProductStore.js";
+import Categories from "../components/product/Categories.jsx";
 
 
 const ProductDetailsPage = () => {
@@ -18,6 +19,7 @@ const ProductDetailsPage = () => {
     return (
         <Layout>
             <ProductDetails/>
+            <Categories/>
         </Layout>
     );
 };

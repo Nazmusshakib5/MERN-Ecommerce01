@@ -15,7 +15,7 @@ const Brands = () => {
                             />Shopping Categories </span>
                             {
                                 BrandList.map((item,i)=> (<div key={i} className="col-6 col-lg-8r text-center col-md-8r p-2">
-                                    <Link to={`ByBrand/${item['_id']}`} className="card h-100 rounded-3 bg-light">
+                                    <Link to={`/ByBrand/${item['_id']}`} className="card h-100 rounded-3 bg-light">
                                         <div className="card-body">
                                             <img alt='img' className="w-75" src={item['brandImg']}/>
                                             <p className="bodySmal mt-3">{item['brandName']} </p>

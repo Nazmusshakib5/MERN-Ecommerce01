@@ -2,10 +2,11 @@ import ProductStore from "../../store/ProductStore.js";
 import ProductImages from "./ProductImages.jsx";
 import DetailsSkeleton from "../../skeleton/DetailsSkeleton.jsx";
 import { useState} from "react";
-
+import parse from 'html-react-parser'
+import ReviewList from "./ReviewList.jsx";
 
 const ProductDetails = () => {
-    const {details,reviews}=ProductStore()
+    const {details}=ProductStore()
     const [quantity,setQuantity]=useState(1)
     const QuantityPlus=()=>{
         setQuantity(quantity=>quantity+1)
@@ -15,7 +16,6 @@ const ProductDetails = () => {
             setQuantity(quantity=>quantity-1)
         }
     }
-    console.log(details)
     return (
         <div>
             {details===null?(<DetailsSkeleton/>):(details.length>0?(<div>
@@ -71,7 +71,7 @@ const ProductDetails = () => {
                         <ul className="nav nav-tabs" id="myTab" role="tablist">
                             <li className="nav-item" role="presentation">
                                 <button className="nav-link active" id="Speci-tab" data-bs-toggle="tab"
-                                        data-bs-target="#Speci-tabpane"
+                                        data-bs-target="#Speci-tab-pane"
                                         type="button" role="tab" aria-controls="Speci-tab-pane"
                                         aria-selected="true">Specifications
                                 </button>
@@ -87,12 +87,12 @@ const ProductDetails = () => {
                         </ul>
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="Speci-tab-pane" role="tabpanel"
-                                 aria-labelledby="Specitab"
-                                 tabIndex="0"></div>
+                                 aria-labelledby="Speci-tab"
+                                 tabIndex="0">{parse(details[0]['detail']['des'])}</div>
                             <div className="tab-pane fade" id="Review-tab-pane" role="tabpanel"
                                  aria-labelledby="Review-tab"
                                  tabIndex="0">
-                                <ul className="list-group list-group-flush"></ul>
+                                <ReviewList/>
                             </div>
                         </div>
                     </div>
@@ -102,6 +102,7 @@ const ProductDetails = () => {
                     No Details Available
                 </div>
             </div>))}
+
         </div>
     );
 };
