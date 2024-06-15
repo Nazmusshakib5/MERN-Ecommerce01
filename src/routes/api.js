@@ -60,6 +60,7 @@ router.post('/PaymentIPN/:transID',InvoiceController.PaymentIPN)
 
 //FeatureList
 router.get('/FeaturesList',FeatureController.FeaturesList)
+router.get('/LegalDetails/:type',FeatureController.LegalDetailsList)
 
 //Create Review
 router.post('/CreateReview',authMiddleWare,ProductController.CreateReview)

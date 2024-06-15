@@ -5,6 +5,12 @@ import ProductListByBrandPage from "./pages/ProductListByBrandPage.jsx";
 import ProductListByCategoryPage from "./pages/ProductListByCategoryPage.jsx";
 import ProductListByKeywordPage from "./pages/ProductListByKeywordPage.jsx";
 import ProductDetailsPage from "./pages/ProductDetailsPage.jsx";
+import AboutPage from "./pages/LegalPages/AboutPage.jsx";
+import TermsPage from "./pages/LegalPages/TermsPage.jsx";
+import RefundPage from "./pages/LegalPages/RefundPage.jsx";
+import HowToBuyPage from "./pages/LegalPages/HowToBuyPage.jsx";
+import ContactPage from "./pages/LegalPages/ContactPage.jsx";
+import ComplainPage from "./pages/LegalPages/ComplainPage.jsx";
 
 
 const App = () => {
@@ -16,6 +22,14 @@ const App = () => {
                 <Route path='/ByCategory/:id' element={<ProductListByCategoryPage/>}/>
                 <Route path='/ByKeyword/:keyword' element={<ProductListByKeywordPage/>}/>
                 <Route path='/Details/:id' element={<ProductDetailsPage/>}/>
+
+
+                <Route path='/about' element={<AboutPage/>}/>
+                <Route path='/terms' element={<TermsPage/>}/>
+                <Route path='/refund' element={<RefundPage/>}/>
+                <Route path='/howtobuy' element={<HowToBuyPage/>}/>
+                <Route path='/contact' element={<ContactPage/>}/>
+                <Route path='/complain' element={<ComplainPage/>}/>
             </Routes>
 
         </BrowserRouter>
