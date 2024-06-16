@@ -16,7 +16,7 @@ const UserOtpService=async (req)=>{
         return {status:'success',msg:'Verification code success'}
 
     }catch (e) {
-        return {status:'failed',msg:'Verification code failed'}
+        return {status:'failed',msg:'Verification code failed',err:e}
     }
 }
 

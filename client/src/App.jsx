@@ -11,6 +11,8 @@ import RefundPage from "./pages/LegalPages/RefundPage.jsx";
 import HowToBuyPage from "./pages/LegalPages/HowToBuyPage.jsx";
 import ContactPage from "./pages/LegalPages/ContactPage.jsx";
 import ComplainPage from "./pages/LegalPages/ComplainPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import VerifyPage from "./pages/VerifyPage.jsx";
 
 
 const App = () => {
@@ -30,6 +32,10 @@ const App = () => {
                 <Route path='/howtobuy' element={<HowToBuyPage/>}/>
                 <Route path='/contact' element={<ContactPage/>}/>
                 <Route path='/complain' element={<ComplainPage/>}/>
+
+
+                <Route path='/login' element={<LoginPage/>}/>
+                <Route path='/otp' element={<VerifyPage/>}/>
             </Routes>
 
         </BrowserRouter>
