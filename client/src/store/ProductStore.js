@@ -78,7 +78,7 @@ const ProductStore=create((set)=>({
 
 
     SearchProducts:'',
-    SetSearchProducts:async (keyword)=>{
+    SetSearchProducts: (keyword)=>{
         set({SearchProducts:keyword})
     }
 

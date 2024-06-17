@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import axios from 'axios'
 import {GetEmail, SetEmail} from "../utility/Utility.js";
+import Cookies from "js-cookie";
 
 
 const UserStore=create((set)=>({
@@ -41,7 +42,11 @@ const UserStore=create((set)=>({
             const res= await axios.get(`/api/v1/VerifyLogin/${email}/${otp}`)
             set({isSubmitButton:false})
             return res.data['status']==='success';
+        },
+        IsLogin: ()=>{
+            return  !!Cookies.get("token");
         }
+
     }
 
 ))

@@ -1,10 +1,12 @@
 import {Link} from "react-router-dom";
 import logo from '../../assets/images/plainb-logo.svg'
 import ProductStore from "../../store/ProductStore.js";
+import userStore from "../../store/UserStore.js";
 
 
 const AppNavBar = () => {
     const {SetSearchProducts,SearchProducts}=ProductStore()
+    const {IsLogin}=userStore()
     return (
         <>
         <div className="container-fluid text-white p-2 bg-success">
@@ -40,7 +42,7 @@ const AppNavBar = () => {
                         <img className="img-fluid" src={logo} alt="" width="96px"/>
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav06"
-                            ariacontrols="nav06" aria-expanded="false" aria-label="Toggle navigation">
+                            aria-controls="nav06" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="nav06">
@@ -68,8 +70,17 @@ const AppNavBar = () => {
                         <Link to="/wish" type="button" className="btn ms-2 btn-light d-flex">
                             <i className="bi text-dark bi-heart"></i>
                         </Link>
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Logout</Link>
+                        {
+                            IsLogin()?(
+                                <div className=" d-flex">
+                                    <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
+                                <Link type="button" className="btn ms-3 btn-success d-flex" to="/logout">Logout</Link>
+                                    </div>
+                            ):(
+                            <Link type="button" className="btn ms-3 btn-success d-flex" to="/login">Login</Link>
+                            )
+                        }
+
                     </div>
                 </div>
             </nav>
