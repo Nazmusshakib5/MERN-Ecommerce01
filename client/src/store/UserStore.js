@@ -45,6 +45,12 @@ const UserStore=create((set)=>({
         },
         IsLogin: ()=>{
             return  !!Cookies.get("token");
+        },
+        UserLogoutRequest:async ()=>{
+            set({isSubmitButton:true})
+            const res= await axios.get(`/api/v1/UserLogout`)
+            set({isSubmitButton:false})
+            return res.data['status']==='success';
         }
 
     }
