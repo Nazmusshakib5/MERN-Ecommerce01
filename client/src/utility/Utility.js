@@ -1,6 +1,10 @@
 
 export function UnAuthorized(code){
-
+    if(code===401){
+        sessionStorage.clear()
+        localStorage.clear()
+        window.location.href="/login"
+    }
 }
 
 export function SetEmail(email){

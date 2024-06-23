@@ -24,7 +24,6 @@ const ProductList = () => {
             !isFilterEmpty && await ProductListByFiltering(filter)
         })()
     }, [filter]);
-    console.log(filter)
     return (
         <div className='container mt-2'>
             <div className='row'>

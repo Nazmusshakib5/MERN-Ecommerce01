@@ -1,8 +1,7 @@
 import {create} from 'zustand'
 import axios from 'axios'
-import {GetEmail, SetEmail} from "../utility/Utility.js";
+import {GetEmail, SetEmail,UnAuthorized} from "../utility/Utility.js";
 import Cookies from "js-cookie";
-
 
 const UserStore=create((set)=>({
         isSubmitButton:false,
@@ -51,10 +50,52 @@ const UserStore=create((set)=>({
             const res= await axios.get(`/api/v1/UserLogout`)
             set({isSubmitButton:false})
             return res.data['status']==='success';
+        },
+        ProfileData:{
+            cus_city:"",
+            cus_name:"",
+            cus_phone:"",
+            cus_fax:"",
+            cus_country:"",
+            cus_state:"",
+            cus_postcode:"",
+            cus_add:"",
+            ship_name:"",
+            ship_phone:"",
+            ship_country:"",
+            ship_city:"",
+            ship_state:"",
+            ship_postcode:"",
+            ship_add:""
+        },
+        UserProfileRequest:async ()=>{
+            try{
+                const res=await axios.get(`/api/v1/ReadProfile`)
+                set({ProfileData:res.data['data'][0]})
+                return res.data['status']==='success';
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
+        },
+        ProfileDataOnChange:(name,value)=>{
+            set((state)=>({
+                ProfileData:{
+                    ...state.ProfileData,
+                    [name]:value
+                }
+            }))
+        },
+        ProfileDataOnSave:async (ProfileData)=>{
+            try{
+                set({isSubmitButton:true})
+                const res=await axios.post(`/api/v1/CreateProfile`,ProfileData)
+                set({isSubmitButton:false})
+                return res.data['status']==='success';
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
         }
-
     }
-
 ))
 
 export default UserStore
