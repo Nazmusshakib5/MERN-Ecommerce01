@@ -3,12 +3,23 @@ import logo from '../../assets/images/plainb-logo.svg'
 import ProductStore from "../../store/ProductStore.js";
 import userStore from "../../store/UserStore.js";
 import SubmitButton from "../user/SubmitButton.jsx";
+import CartStore from "../../store/CartStore.js";
+import {useEffect} from "react";
 
 
 const AppNavBar = () => {
     const navigate=useNavigate();
     const {SetSearchProducts,SearchProducts}=ProductStore()
     const {IsLogin,UserLogoutRequest}=userStore()
+    const {CartCount,ReadCartListRequest}=CartStore()
+
+    useEffect(() => {
+        (async ()=>{
+            if(IsLogin()){
+                await ReadCartListRequest()
+            }
+        })()
+    }, []);
 
     const HandleLogout= async ()=>{
         await UserLogoutRequest();
@@ -76,6 +87,7 @@ const AppNavBar = () => {
                         </div>
                         <Link to="/cart" type="button" className="btn ms-2 btn-light position-relative">
                             <i className="bi text-dark bi-bag"></i>
+                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-success'>{CartCount}</span>
                         </Link>
                         <Link to="/wish" type="button" className="btn ms-2 btn-light d-flex">
                             <i className="bi text-dark bi-heart"></i>

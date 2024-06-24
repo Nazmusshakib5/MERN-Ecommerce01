@@ -1,13 +1,24 @@
 import ProductStore from "../../store/ProductStore.js";
 import ProductImages from "./ProductImages.jsx";
 import DetailsSkeleton from "../../skeleton/DetailsSkeleton.jsx";
-import { useState} from "react";
+import {useEffect, useState} from "react";
 import parse from 'html-react-parser'
 import ReviewList from "./ReviewList.jsx";
+import CartButton from "../cart/CartButton.jsx";
+import CartStore from "../../store/CartStore.js";
+import toast from "react-hot-toast";
+
 
 const ProductDetails = () => {
-    const {details}=ProductStore()
+    const {details,CategoryListRequest}=ProductStore()
+    const {CartItem,SaveCartItemRequest,CartItemOnChange,ReadCartListRequest}=CartStore()
     const [quantity,setQuantity]=useState(1)
+    useEffect(() => {
+        (async ()=>{
+            await CategoryListRequest()
+        })()
+    }, []);
+
     const QuantityPlus=()=>{
         setQuantity(quantity=>quantity+1)
     }
@@ -16,6 +27,19 @@ const ProductDetails = () => {
             setQuantity(quantity=>quantity-1)
         }
     }
+
+    const SaveCart=async (productId,quantity)=>{
+        let res=await SaveCartItemRequest(CartItem,productId,quantity)
+        if(res){
+            toast.success('Added to Cart')
+            await ReadCartListRequest()
+        }
+        else {
+
+            toast.error('Select Color Size Quantity')
+        }
+    }
+    console.log(CartItem)
     return (
         <div>
             {details===null?(<DetailsSkeleton/>):(details.length>0?(<div>
@@ -35,7 +59,8 @@ const ProductDetails = () => {
                             <div className="row">
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Size</label>
-                                    <select className="form-control my-2 form-select">
+                                    <select onChange={(e)=>CartItemOnChange('size',e.target.value)}
+                                            className="form-control my-2 form-select">
                                         {details[0]['detail']['size'].split(',').map((item,i)=> {
                                             return <option key={i} value={item}>{item}</option>
                                         })}
@@ -43,7 +68,7 @@ const ProductDetails = () => {
                                 </div>
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Color</label>
-                                    <select className="form-control my-2 form-select">
+                                    <select onChange={(e)=>CartItemOnChange('color',e.target.value)} className="form-control my-2 form-select">
                                         {details[0]['detail']['color'].split(',').map((item,i)=> {
                                             return <option key={i} value={item}>{item}</option>
                                         })}
@@ -54,12 +79,12 @@ const ProductDetails = () => {
                                     <div className="input-group my-2">
                                         <button className="btn btn-outline-secondary"
                                                 onClick={QuantityMinus}>-</button>
-                                        <input value={quantity} type="text" className="form-control bg-light text-center" readOnly/>
+                                        <input value={quantity}  onChange={(e)=>CartItemOnChange('qty',e.target.value)} type="text" className="form-control bg-light text-center" readOnly/>
                                         <button onClick={QuantityPlus} className="btn btn-outline-secondary">+</button>
                                     </div>
                                 </div>
                                 <div className="col-4 p-2">
-                                    <button className="btn w-100 btn-success">Add to Cart</button>
+                                    <CartButton onClick={(e)=>SaveCart(details[0]['_id'],quantity)} text="Add to Cart" className="btn w-100 btn-success"/>
                                 </div>
                                 <div className="col-4 p-2">
                                     <button className="btn w-100 btn-success">Add to Wish</button>
