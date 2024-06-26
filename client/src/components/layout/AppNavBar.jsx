@@ -5,6 +5,7 @@ import userStore from "../../store/UserStore.js";
 import SubmitButton from "../user/SubmitButton.jsx";
 import CartStore from "../../store/CartStore.js";
 import {useEffect} from "react";
+import WishStore from "../../store/WishStore.js";
 
 
 const AppNavBar = () => {
@@ -12,11 +13,13 @@ const AppNavBar = () => {
     const {SetSearchProducts,SearchProducts}=ProductStore()
     const {IsLogin,UserLogoutRequest}=userStore()
     const {CartCount,ReadCartListRequest}=CartStore()
+    const {WishCount,ReadWishListRequest}=WishStore()
 
     useEffect(() => {
         (async ()=>{
             if(IsLogin()){
                 await ReadCartListRequest()
+                await ReadWishListRequest()
             }
         })()
     }, []);
@@ -89,11 +92,12 @@ const AppNavBar = () => {
                             <i className="bi text-dark bi-bag"></i>
                             <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-success'>{CartCount}</span>
                         </Link>
-                        <Link to="/wish" type="button" className="btn ms-2 btn-light d-flex">
+                        <Link to="/wish" type="button" className="btn ms-2 btn-light position-relative">
                             <i className="bi text-dark bi-heart"></i>
+                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-warning'>{WishCount}</span>
                         </Link>
                         {
-                            IsLogin()?(
+                            IsLogin() ? (
                                 <div className=" d-flex">
                                     <Link type="button" className="btn ms-3 btn-success d-flex" to="/Profile">Profile</Link>
                                     <SubmitButton onClick={HandleLogout} text="Logout" className="btn ms-3 btn-success d-flex"/>

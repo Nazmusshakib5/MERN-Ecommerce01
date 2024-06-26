@@ -14,6 +14,8 @@ import ComplainPage from "./pages/LegalPages/ComplainPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import VerifyPage from "./pages/VerifyPage.jsx";
 import CustomerProfilePage from "./pages/CustomerProfilePage.jsx";
+import CartPage from "./pages/CartPage.jsx";
+import WishPage from "./pages/WishPage.jsx";
 
 
 const App = () => {
@@ -38,6 +40,9 @@ const App = () => {
                 <Route path='/login' element={<LoginPage/>}/>
                 <Route path='/otp' element={<VerifyPage/>}/>
                 <Route path='/Profile' element={<CustomerProfilePage/>}/>
+
+                <Route path='/cart' element={<CartPage/>}/>
+                <Route path='/wish' element={<WishPage/>}/>
             </Routes>
 
         </BrowserRouter>

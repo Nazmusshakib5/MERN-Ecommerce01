@@ -71,6 +71,11 @@ body {
     height: auto;
     border-radius: 4px;
 }
+.product-img-md{
+    width: 350px;
+    height: auto;
+    border-radius: 4px;
+}
 
 .pay-img {
     -webkit-filter: brightness(1);
