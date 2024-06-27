@@ -5,8 +5,13 @@ import StarRatings from "react-star-ratings/build/star-ratings.js";
 import {Link} from "react-router-dom";
 
 const Wishes = () => {
-    const {WishList,WishCount}=wishStore()
+    const {WishList,WishCount,RemoveWishList,ReadWishListRequest}=wishStore()
     console.log(WishList)
+    const RemoveWish=async (productID)=>{
+        await RemoveWishList(productID)
+        await ReadWishListRequest()
+    }
+
     if(WishList===null){
         return (
             <div>
@@ -28,23 +33,39 @@ const Wishes = () => {
                        <div className="row">
                            {
                                WishList.map((item,i)=> {
+                                   let price = <p className="bodyMedium text-secondary my-1">{item['WishProduct']['price']}</p>
+                                   if (item['WishProduct']['discount']) {
+                                       price = <p className="bodyMedium text-secondary my-1">
+                                           <del>{item['WishProduct']['price']}</del>
+                                           <span style={{marginLeft: '10px'}}>{item['WishProduct']['discountPrice']}</span></p>
+                                   }
                                    return (
                                        <div key={i}
                                             className="col-md-3 p-2 col-lg-3 col-sm-6 col-12">
-                                           <Link to={`/ByKeyword/${item['WishProduct']['remark']}`}
+                                           <div
                                                  className="card shadow-sm h-100 rounded-3 bg-white">
                                                <img alt='img' className="w-100 rounded-top-2"
                                                     src={item['WishProduct']['image']}/>
                                                <div className="card-body">
                                                    <p className="bodySmal text-secondary my-1">{item['WishProduct']['title']}</p>
-                                                   <p className="bodyMedium text-dark my-1">{item['WishProduct']['price']} </p>
+                                                   <p className="bodyMedium text-dark my-1">{price} </p>
                                                    <StarRatings
                                                        rating={parseFloat(item['WishProduct']['star'])}
                                                        starRatedColor="red"
                                                        starDimension="15px"
                                                        starSpacing="2px"/>
                                                </div>
-                                           </Link>
+                                               <div className="row">
+                                                   <div className="col-md-12">
+                                                       <div className='d-flex justify-content-around mb-2'>
+                                                           <button className="btn ms-3 btn-danger"
+                                                           onClick={(e)=>RemoveWish(item['productID'])}> Remove </button>
+                                                           <Link to={`/Details/${item['productID']}`}
+                                                                 className="btn ms-3 btn-success"> Details</Link>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                           </div>
                                        </div>)
                                })
                            }

@@ -17,7 +17,7 @@ const ReadWishListService=async (req)=>{
         let joinWitCategoryStage={$lookup:{from:'categories',localField:'WishProduct.categoryID',foreignField:'_id',as:'category'}}
         let unwindCategoryStage={$unwind:'$category'};
 
-        let projectionStage={$project:{'userID':0,'productID':0,'createdAt':0,'updatedAt':0,'WishProduct._id':0,
+        let projectionStage={$project:{'userID':0,'createdAt':0,'updatedAt':0,'WishProduct._id':0,
             'WishProduct.createdAt':0,'WishProduct.updatedAt':0,'category._id':0,'brand._id':0,'category.updatedAt':0,
                 'category.createdAt':0,'brand.updatedAt':0,'brand.createdAt':0,
             }}

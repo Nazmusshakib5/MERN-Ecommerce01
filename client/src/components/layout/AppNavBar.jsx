@@ -71,12 +71,24 @@ const AppNavBar = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="nav06">
                         <ul className="navbar-nav mt-3 mt-lg-0 mb-3 mb-lg-0 ms-lg-3">
-                            <span className="nav-item me-4">
-                                <Link className="nav-link" to="/">Home</Link>
+                            <span className="nav-item me-4 d-flex">
+                                <Link className="btn ms-2 btn-light me-md-3" to="/">
+                                    <i className="bi text-dark bi-house me-2"></i>Home</Link>
+                                 <Link to="/cart" type="button" className="btn ms-2 me-md-3 btn-light position-relative">
+                            <i className="bi text-dark bi-bag me-2"></i>Cart
+                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-success'>{CartCount}</span>
+                        </Link>
+                        <Link to="/wish" type="button" className="btn ms-2 me-md-3 btn-light position-relative">
+                            <i className="bi text-dark bi-heart me-2"></i>Wish
+                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-warning'>{WishCount}</span>
+                        </Link>
+                         <Link className="btn ms-2 btn-light me-md-3" to="/">
+                              <i className="bi text-dark bi-truck-front me-2"></i>Order
+                         </Link>
                             </span>
                         </ul>
                     </div>
-                    <div className=" d-lg-flex">
+                    <div className=" d-lg-flex d-md-flex">
                         <div className="input-group">
                             <input onChange={(e)=>{SetSearchProducts(e.target.value)}} className="form-control" type="search" placeholder="Search" aria-label="Search"/>
                             <Link to={SearchProducts?(`/ByKeyword/${SearchProducts}`):('/')}  className="btn btn-outline-dark">
@@ -88,17 +100,10 @@ const AppNavBar = () => {
                                 </svg>
                             </Link>
                         </div>
-                        <Link to="/cart" type="button" className="btn ms-2 btn-light position-relative">
-                            <i className="bi text-dark bi-bag"></i>
-                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-success'>{CartCount}</span>
-                        </Link>
-                        <Link to="/wish" type="button" className="btn ms-2 btn-light position-relative">
-                            <i className="bi text-dark bi-heart"></i>
-                            <span className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-warning'>{WishCount}</span>
-                        </Link>
+
                         {
                             IsLogin() ? (
-                                <div className=" d-flex">
+                                <div className=" d-flex mt-2 mt-md-0 mt-lg-0">
                                     <Link type="button" className="btn ms-3 btn-success d-flex" to="/Profile">Profile</Link>
                                     <SubmitButton onClick={HandleLogout} text="Logout" className="btn ms-3 btn-success d-flex"/>
                                     </div>
