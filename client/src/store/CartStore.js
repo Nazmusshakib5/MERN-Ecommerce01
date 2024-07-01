@@ -40,6 +40,28 @@ const CartStore=create((set)=>({
             }catch (e) {
                 UnAuthorized(e.response.status)
             }
+        },
+
+        Price:0,
+        Vat:0,
+        Payable:0,
+        CalculateCart:(Price)=>{
+            try {
+                let Vat=0.05*Price
+                let Payable=Price+Vat
+                set({Price:Price,Payable:Payable,Vat:Vat})
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
+        },
+
+        RemoveCartListRequest:async (productID)=>{
+            try {
+                let res=await axios.post(`/api/v1/RemoveCartList`,{productID:productID})
+                return res.data['status']==='success';
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
         }
 
     }

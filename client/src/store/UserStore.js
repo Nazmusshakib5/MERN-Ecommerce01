@@ -71,7 +71,7 @@ const UserStore=create((set)=>({
         UserProfileRequest:async ()=>{
             try{
                 const res=await axios.get(`/api/v1/ReadProfile`)
-                set({ProfileData:res.data['data'][0]})
+                set({ProfileData:res.data['data'][0] || {data:"a"}})
                 return res.data['status']==='success';
             }catch (e) {
                 UnAuthorized(e.response.status)

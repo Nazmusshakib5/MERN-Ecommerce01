@@ -9,6 +9,7 @@ import CartStore from "../../store/CartStore.js";
 import toast from "react-hot-toast";
 import WishButton from "../wish/WishButton.jsx";
 import WishStore from "../../store/WishStore.js";
+import NoProduct from "../../assets/images/no-results.png"
 
 
 const ProductDetails = () => {
@@ -142,8 +143,8 @@ const ProductDetails = () => {
                     </div>
                 </div>
             </div>):(<div className="row">
-                <div className='col-12 text-center mt-5 bodyXLarge'>
-                    No Details Available
+                <div className='col-12 d-flex justify-content-center'>
+                        <img alt="No products available" className="product-img-md" src={NoProduct}/>
                 </div>
             </div>))}
 

@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 const Wishes = () => {
     const {WishList,WishCount,RemoveWishList,ReadWishListRequest}=wishStore()
-    console.log(WishList)
     const RemoveWish=async (productID)=>{
         await RemoveWishList(productID)
         await ReadWishListRequest()

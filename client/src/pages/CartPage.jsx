@@ -4,13 +4,13 @@ import CartStore from "../store/CartStore.js";
 import {useEffect} from "react";
 
 const CartPage = () => {
-    const {ReadCartListRequest}=CartStore()
-
+    const {CartList,ReadCartListRequest}=CartStore()
     useEffect(() => {
         (async ()=>{
             await ReadCartListRequest()
         })()
     }, []);
+    console.log(CartList)
     return (
         <Layout>
             <Carts/>

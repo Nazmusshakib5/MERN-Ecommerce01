@@ -1,6 +1,7 @@
 import ProfileForm from "../components/user/ProfileForm.jsx";
 import userStore from "../store/UserStore.js";
 import {useEffect} from "react";
+import Layout from "../components/layout/Layout.jsx";
 
 const CustomerProfilePage = () => {
     const {UserProfileRequest}=userStore()
@@ -10,9 +11,9 @@ const CustomerProfilePage = () => {
         })()
     }, []);
     return (
-        <div>
+        <Layout>
             <ProfileForm/>
-        </div>
+        </Layout>
     );
 };
 
