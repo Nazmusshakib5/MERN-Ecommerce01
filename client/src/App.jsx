@@ -16,6 +16,7 @@ import VerifyPage from "./pages/VerifyPage.jsx";
 import CustomerProfilePage from "./pages/CustomerProfilePage.jsx";
 import CartPage from "./pages/CartPage.jsx";
 import WishPage from "./pages/WishPage.jsx";
+import OrderPage from "./pages/OrderPage.jsx";
 
 
 const App = () => {
@@ -43,6 +44,8 @@ const App = () => {
 
                 <Route path='/cart' element={<CartPage/>}/>
                 <Route path='/wish' element={<WishPage/>}/>
+
+                <Route path='/orders' element={<OrderPage/>}/>
             </Routes>
 
         </BrowserRouter>

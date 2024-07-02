@@ -26,8 +26,8 @@ const HomePage = () => {
             <Slider/>
             <Feature/>
             <Brands/>
-            <Categories/>
             <Products/>
+            <Categories/>
         </Layout>
     );
 };

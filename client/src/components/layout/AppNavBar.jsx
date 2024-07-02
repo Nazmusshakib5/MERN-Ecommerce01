@@ -59,7 +59,7 @@ const AppNavBar = () => {
                             <span
                                 className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-warning'>{WishCount}</span>
                         </Link>
-                         <Link className="btn ms-2 btn-light me-md-3" to="/">
+                         <Link className="btn ms-2 btn-light me-md-3" to="/orders">
                               <i className="bi text-dark bi-truck-front me-2"></i>Order
                          </Link>
                             </span>

@@ -45,11 +45,21 @@ const CartStore=create((set)=>({
         Price:0,
         Vat:0,
         Payable:0,
-        CalculateCart:(Price)=>{
+        CalculateCartRequest:async ()=>{
             try {
-                let Vat=0.05*Price
-                let Payable=Price+Vat
-                set({Price:Price,Payable:Payable,Vat:Vat})
+                let res=await axios.get(`/api/v1/ReadCartList`)
+                let total=0
+                res.data['data'].forEach((item)=>{
+                    if(item['WishProduct']['discount']){
+                        total+=parseInt(item['WishProduct']['discountPrice'])*parseInt(item['qty'])
+                    }
+                    else {
+                        total+=parseInt(item['WishProduct']['price'])*parseInt(item['qty'])
+                    }
+                })
+                let Vat=0.05*total
+                let Payable=total+Vat
+                set({Price:total,Payable:Payable,Vat:Vat})
             }catch (e) {
                 UnAuthorized(e.response.status)
             }
@@ -59,6 +69,17 @@ const CartStore=create((set)=>({
             try {
                 let res=await axios.post(`/api/v1/RemoveCartList`,{productID:productID})
                 return res.data['status']==='success';
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
+        },
+
+        CrateInvoiceRequest:async ()=>{
+            try {
+                set({isCartButton:true})
+                let res=await axios.get(`/api/v1/CreateInvoice`)
+                set({isCartButton:false})
+                window.location.href=res.data['data']['GatewayPageURL']
             }catch (e) {
                 UnAuthorized(e.response.status)
             }

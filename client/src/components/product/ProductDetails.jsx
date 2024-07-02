@@ -75,18 +75,20 @@ const ProductDetails = () => {
                             <div className="row">
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Size</label>
-                                    <select onChange={(e)=>CartItemOnChange('size',e.target.value)}
+                                    <select onChange={(e) => CartItemOnChange('size', e.target.value)}
                                             className="form-control my-2 form-select">
-                                        {details[0]['detail']['size'].split(',').map((item,i)=> {
+                                        <option>Size</option>
+                                        {details[0]['detail']['size'].split(',').map((item, i) => {
                                             return <option key={i} value={item}>{item}</option>
                                         })}
                                     </select>
                                 </div>
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Color</label>
-                                    <select onChange={(e)=>CartItemOnChange('color',e.target.value)}
+                                    <select onChange={(e) => CartItemOnChange('color', e.target.value)}
                                             className="form-control my-2 form-select">
-                                        {details[0]['detail']['color'].split(',').map((item,i)=> {
+                                        <option>Color</option>
+                                        {details[0]['detail']['color'].split(',').map((item, i) => {
                                             return <option key={i} value={item}>{item}</option>
                                         })}
                                     </select>
@@ -96,7 +98,7 @@ const ProductDetails = () => {
                                     <div className="input-group my-2">
                                         <button className="btn btn-outline-secondary"
                                                 onClick={QuantityMinus}>-</button>
-                                        <input value={quantity}  onChange={(e)=>CartItemOnChange('qty',e.target.value)}
+                                        <input value={quantity} onChange={(e)=>CartItemOnChange('qty',e.target.value)}
                                                type="text" className="form-control bg-light text-center" readOnly/>
                                         <button onClick={QuantityPlus} className="btn btn-outline-secondary">+</button>
                                     </div>

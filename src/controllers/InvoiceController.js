@@ -10,17 +10,17 @@ exports.CreateInvoice=async (req,res)=>{
 
 exports.PaymentSuccess=async (req,res)=>{
     const data=await PaymentSuccessService(req);
-    return res.status(200).json(data);
+    return res.redirect('/orders');
 }
 
 exports.PaymentFail=async (req,res)=>{
     const data=await PaymentFailService(req);
-    return res.status(200).json(data);
+    return res.redirect('/orders');
 }
 
 exports.PaymentCancel=async (req,res)=>{
     const data=await PaymentCancelService(req);
-    return res.status(200).json(data);
+    return res.redirect('/orders');
 }
 
 exports.PaymentIPN=async (req,res)=>{
