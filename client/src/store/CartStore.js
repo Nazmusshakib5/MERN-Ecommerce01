@@ -83,8 +83,29 @@ const CartStore=create((set)=>({
             }catch (e) {
                 UnAuthorized(e.response.status)
             }
-        }
+        },
 
+
+        InvoiceList:null,
+        InvoiceListRequest:async ()=>{
+            try {
+                let res=await axios.get(`/api/v1/InvoiceList`)
+                set({InvoiceList:res.data['data']})
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
+        },
+
+
+        InvoiceProductList:null,
+        InvoiceProductListRequest:async (invoiceID)=>{
+            try {
+                let res=await axios.get(`/api/v1/InvoiceProductList/${invoiceID}`)
+                set({InvoiceProductList:res.data['data']})
+            }catch (e) {
+                UnAuthorized(e.response.status)
+            }
+        },
     }
 ))
 

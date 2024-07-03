@@ -66,6 +66,7 @@ body {
     font-size: 14px;
 }
 
+
 .product-img-sm{
     width: 50px;
     height: auto;
@@ -86,7 +87,9 @@ body {
     filter: brightness(0.8);
 }
 
-
+.activeBackground{
+    background-color:#dc3545;
+}
 
 .section{
     margin-top: 80px !important;
@@ -107,8 +110,6 @@ body {
 .bg-light{
     background-color: var(--lightDeepColor-2) !important;
 }
-
-
 .bg-success{
     background: var(--themeColor) !important;
 }

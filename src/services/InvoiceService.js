@@ -128,8 +128,6 @@ const CreateInvoiceService=async (req)=>{
 
         let SSLres=await axios.post(paymentSettings[0]['init_url'],form)
 
-
-
         return {status:'success',msg:'Invoice Created',data:SSLres.data}
 
     }catch (e) {

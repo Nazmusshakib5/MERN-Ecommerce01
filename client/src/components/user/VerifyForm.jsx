@@ -13,7 +13,7 @@ const VerifyForm = () => {
         }
         else {
             let responseData= await UserOtpRequest(OtpFormValue.otp)
-            responseData?navigate('/'):toast.error('SomeThing Went Wrong')
+            responseData?navigate('/'):toast.error('Wrong OTP')
         }
     }
     return (

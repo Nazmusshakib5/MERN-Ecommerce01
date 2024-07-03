@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 import logo from '../../assets/images/plainb-logo.svg'
 import ProductStore from "../../store/ProductStore.js";
 import userStore from "../../store/UserStore.js";
@@ -6,6 +6,7 @@ import SubmitButton from "../user/SubmitButton.jsx";
 import CartStore from "../../store/CartStore.js";
 import {useEffect} from "react";
 import WishStore from "../../store/WishStore.js";
+
 
 
 const AppNavBar = () => {
@@ -46,22 +47,25 @@ const AppNavBar = () => {
                     <div className="collapse navbar-collapse" id="nav06">
                         <ul className="navbar-nav mt-3 mt-lg-0 mb-3 mb-lg-0 ms-lg-3">
                             <span className="nav-item me-4 d-flex justify-content-center">
-                                <Link className="btn ms-2 btn-light me-md-3" to="/">
-                                    <i className="bi text-dark bi-house me-2"></i>Home</Link>
-                                 <Link to="/cart" type="button"
-                                       className="btn ms-2 me-md-3 btn-light position-relative">
-                            <i className="bi text-dark bi-bag me-2"></i>Cart
+                                <NavLink className={`btn ms-2 btn-light me-md-3`}  to="/">
+                                    <i className="bi text-dark bi-house me-2"></i>Home</NavLink>
+                                 <NavLink to="/cart"
+                                          className={`btn ms-2 me-md-3 btn-light position-relative`}>
+                                     <i className="bi text-dark bi-bag me-2"></i>Cart
                             <span
                                 className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-success'>{CartCount}</span>
-                        </Link>
-                        <Link to="/wish" type="button" className="btn ms-2 me-md-3 btn-light position-relative">
+                        </NavLink>
+                        <NavLink to="/wish" type="button"
+                                 className={`btn ms-2 me-md-3 btn-light position-relative`}>
                             <i className="bi text-dark bi-heart me-2"></i>Wish
                             <span
                                 className='position-absolute top-0 end-0 translate-middle badge rounded-pill bg-warning'>{WishCount}</span>
-                        </Link>
-                         <Link className="btn ms-2 btn-light me-md-3" to="/orders">
-                              <i className="bi text-dark bi-truck-front me-2"></i>Order
-                         </Link>
+                        </NavLink>
+                                {
+                                    IsLogin()?(<NavLink className={`btn ${({isActive})=>isActive?'active':''} ms-2 btn-light me-md-3`} to="/orders">
+                                        <i className="bi text-dark bi-truck-front me-2"></i>Order
+                                    </NavLink>):('')
+                                }
                             </span>
                         </ul>
 
