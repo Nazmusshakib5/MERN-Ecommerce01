@@ -121,10 +121,10 @@ const CreateInvoiceService=async (req)=>{
         form.append('ship_state',profile[0]['ship_state'])
         form.append('ship_country',profile[0]['ship_country'])
         form.append('ship_postcode',profile[0]['ship_postcode'])
-        form.append('product_name','According to invoice')
-        form.append('product_category','According to invoice')
-        form.append('product_profile','According to invoice')
-        form.append('product_amount','According to invoice')
+        form.append('product_name','According to Review')
+        form.append('product_category','According to Review')
+        form.append('product_profile','According to Review')
+        form.append('product_amount','According to Review')
 
         let SSLres=await axios.post(paymentSettings[0]['init_url'],form)
 
@@ -183,7 +183,7 @@ const PaymentIPNService=async (req)=>{
 const InvoiceListService=async (req)=>{
     try{
         const userId=req.headers.userId;
-        const data = await InvoiceModel.find({userID:userId})
+        const data = await InvoiceModel.find({userID:userId}).sort({createdAt:-1})
         return {status:'success',data:data}
     }catch (e) {
         return {status:'failed',msg:'Invoice not Created',err:e.toString()}

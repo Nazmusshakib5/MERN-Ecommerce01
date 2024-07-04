@@ -7,5 +7,9 @@ class ValidationHelper{
     static IsOtp(value){
         return value.length===6
     }
+
+    static IsReviewEmpty(value){
+        return value.length===0
+    }
 }
 export default ValidationHelper

@@ -1,7 +1,6 @@
 import CartStore from "../../store/CartStore.js";
 import Nodata from "../layout/Nodata.jsx";
 import ProductSkeleton from "../../skeleton/ProductSkeleton.jsx";
-import SubmitButton from "../user/SubmitButton.jsx";
 import {Link} from "react-router-dom";
 
 const Orders = () => {
