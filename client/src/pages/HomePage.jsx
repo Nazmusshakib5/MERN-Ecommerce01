@@ -7,6 +7,8 @@ import Products from "../components/product/Products.jsx";
 import productStore from "../store/ProductStore.js";
 import featureStore from "../store/FeatureStore.js";
 import {useEffect} from "react";
+import CartStore from "../store/CartStore.js";
+import WishStore from "../store/WishStore.js";
 
 
 const HomePage = () => {
