@@ -6,6 +6,7 @@ import SubmitButton from "../user/SubmitButton.jsx";
 import CartStore from "../../store/CartStore.js";
 import {useEffect} from "react";
 import WishStore from "../../store/WishStore.js";
+import Cookies from "js-cookie";
 
 
 
@@ -29,6 +30,9 @@ const AppNavBar = () => {
         await UserLogoutRequest();
         sessionStorage.clear();
         localStorage.clear()
+        if(IsLogin()){
+            Cookies.set("token","")
+        }
         navigate('/');
     }
 
@@ -115,30 +119,3 @@ const AppNavBar = () => {
 
 export default AppNavBar;
 
-// <div className="container-fluid text-white p-2 bg-success">
-//     <div className="container">
-//         <div className="row justify-content-around">
-//             <div className="col-md-6">
-//                             <span>
-//                             <span className="f-12">
-//                             <i className="bi bi-envelope"></i> Support@PlanB.com </span>
-//                             <span className="f-12 mx-2">
-//                             <i className="bi bi-envelope"></i> 01774688159 </span>
-//                             </span>
-//             </div>
-//             <div className="col-md-6">
-//                             <span className="float-end">
-//                             <span className="bodySmal mx-2">
-//                             <i className="bi bi-whatsapp"></i>
-//                             </span>
-//                             <span className="bodySmal mx-2">
-//                             <i className="bi bi-youtube"></i>
-//                             </span>
-//                             <span className="bodySmal">
-//                             <i className="bi bi-facebook"></i>
-//                             </span>
-//                             </span>
-//             </div>
-//         </div>
-//     </div>
-// </div>
