@@ -15,16 +15,6 @@ const path=require('path')
 
 
 
-//database Connection Before Routing
-let URL='mongodb+srv://mongoShakib:<password>@cluster0.gtiw82u.mongodb.net/Ecommerce';
-let OPTION={user:'mongoShakib',pass:'mongoShakib69',autoIndex:true};
-
-mongoose.connect(URL,OPTION).then((res)=>{
-    console.log('Database conneted successfully')
-}).catch((err)=>{
-    console.log(err)
-})
-
 app.use(
     helmet({
         contentSecurityPolicy: false,
@@ -44,7 +34,15 @@ const limiter=rateLimit({windowMs:15*60*1000,max:3000})
 app.use(limiter);
 
 
+//database Connection Before Routing
+let URL='mongodb+srv://mongoShakib:<password>@cluster0.gtiw82u.mongodb.net/Ecommerce';
+let OPTION={user:'mongoShakib',pass:'mongoShakib69',autoIndex:true};
 
+mongoose.connect(URL,OPTION).then((res)=>{
+    console.log('Database conneted successfully')
+}).catch((err)=>{
+    console.log(err)
+})
 
 app.set('etag',false);
 app.use('/api/v1',router)
