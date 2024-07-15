@@ -1,22 +1,28 @@
 const nodemailer=require('nodemailer')
 
 const EmailSend=async (EmailTo,EmailText,EmailSub)=>{
-    let transport=nodemailer.createTransport({
-        host: "mail.teamrabbil.com",
-        port: 25,
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        host: "smtp.gmail.com",
+        port: 587,
         secure: false,
-        auth: {user: "info@teamrabbil.com", pass: "~sR4[bhaC[Qs"},
-        tls: {rejectUnauthorized: false},
-    })
+        auth: {
+            user: "nmshakib5@gmail.com",
+            pass: "mgqz eteg zali yzcl",
+        },
+        tls: {
+            rejectUnauthorized: false,
+        },
+    });
 
     let mailOption={
-        from:'Mern Ecommerce <info@teamrabbil.com>',
+        from:`Mern Ecommerce <nmshakib5@gmail.com>`,
         to:EmailTo,
         subject:EmailSub,
         text:EmailText
     }
 
-    return await transport.sendMail(mailOption)
+    return await transporter.sendMail(mailOption)
 }
 
 module.exports=EmailSend;

@@ -29,7 +29,7 @@ const UserStore=create((set)=>({
 
         UserEmailRequest:async (email)=>{
             set({isSubmitButton:true})
-            const res= await axios.get(`/api/v1/UserOtp/${email}`)
+            const res= await axios.post(`/api/v1/UserOtp/${email}`)
             SetEmail(email)
             set({isSubmitButton:false})
             return res.data['status']==='success';

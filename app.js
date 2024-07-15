@@ -13,7 +13,12 @@ const cookieParser=require('cookie-parser')
 const mongoose=require('mongoose')
 const path=require('path')
 
-app.use(helmet())
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+        xDownloadOptions: false,
+    }),
+);
 app.use(mongoSanitize());
 app.use(xss())
 app.use(cors())

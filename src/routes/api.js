@@ -26,7 +26,7 @@ router.post('/ProductFilterList',ProductController.ProductFilterList)
 
 
 //User Related Routes
-router.get('/UserOtp/:email',UserController.UserOtp)
+router.post('/UserOtp/:email',UserController.UserOtp)
 router.get('/VerifyLogin/:email/:otp',UserController.VerifyLogin)
 router.get('/UserLogout',authMiddleWare,UserController.UserLogout)
 //User After Login Profile manage
