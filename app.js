@@ -45,10 +45,13 @@ mongoose.connect(URL,OPTION).then((res)=>{
 app.set('etag',false);
 app.use('/api/v1',router)
 //directing the control to the frontend
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
 app.use(express.static('client/dist'));
 
-//react front end routing
-app.get('*',(req,res)=>{
+// Add React Front End Routing
+app.get('*',function (req,res) {
     res.sendFile(path.resolve(__dirname,'client','dist','index.html'))
 })
 
