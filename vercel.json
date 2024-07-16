@@ -1,25 +1,16 @@
 {
     "version": 2,
+    "buildCommand": "cd client && npm i && npm run dev",
+    "outputDirectory": "client/dist",
+    "framework": "vite",
     "builds": [
         {
             "src": "index.js",
             "use": "@vercel/node",
             "config": { "includeFiles": ["client/dist/**"] }
-        },
-        {
-            "src": "client/dist/**/*",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
-        {
-            "src": "/assets/(.*)",
-            "dest": "/client/dist/assets/$1"
-        },
-        {
-            "src": "/images/(.*)",
-            "dest": "/public/images/$1"
-        },
         {
             "src": "/(.*)",
             "dest": "index.js"
