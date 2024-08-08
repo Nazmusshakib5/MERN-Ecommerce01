@@ -47,8 +47,8 @@ mongoose.connect(URL,OPTION).then((res)=>{
 app.set('etag',false);
 app.use('/api/v1',router)
 //directing the control to the frontend
-app.use(express.static(path.join(__dirname, 'client', 'dist')));
-app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+app.use(express.static(path.resolve(__dirname, 'client', 'dist')));
+app.use('/images', express.static(path.resolve(__dirname, 'public', 'images')));
 
 app.use(express.static('client/dist'));
 
