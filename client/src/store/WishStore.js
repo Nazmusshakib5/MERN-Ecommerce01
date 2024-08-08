@@ -7,7 +7,7 @@ const WishStore=create((set)=>({
         SaveWishItemRequest:async (productId)=>{
             try {
                 set({isWishButton:true})
-                let res= await axios.post(`/api/v1/SaveWishList`,{productID:productId})
+                let res= await axios.post(`${window.location.origin}/api/v1/SaveWishList`,{productID:productId})
                 set({isWishButton:false})
                 return res.data['status']==='success'
 
@@ -20,7 +20,7 @@ const WishStore=create((set)=>({
         ReadWishListRequest:async ()=>{
             try {
                 set({WishList:null})
-                let res=await axios.get(`/api/v1/ReadWishList`)
+                let res=await axios.get(`${window.location.origin}/api/v1/ReadWishList`)
                 set({WishList:res.data['data']})
                 set({WishCount:res.data['data'].length})
                 return res.data['status']==='success';
@@ -31,7 +31,7 @@ const WishStore=create((set)=>({
 
         RemoveWishList:async (productID)=>{
             try {
-                let res=await axios.post(`/api/v1/RemoveWishList`,{productID:productID})
+                let res=await axios.post(`${window.location.origin}/api/v1/RemoveWishList`,{productID:productID})
                 return res.data['status']==='success';
             }catch (e) {
                 UnAuthorized(e.response.status)

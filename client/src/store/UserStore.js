@@ -29,7 +29,7 @@ const UserStore=create((set)=>({
 
         UserEmailRequest:async (email)=>{
             set({isSubmitButton:true})
-            const res= await axios.post(`/api/v1/UserOtp/${email}`)
+            const res= await axios.post(`${window.location.origin}/api/v1/UserOtp/${email}`)
             SetEmail(email)
             set({isSubmitButton:false})
             return res.data['status']==='success';
@@ -38,7 +38,7 @@ const UserStore=create((set)=>({
         UserOtpRequest:async (otp)=>{
             set({isSubmitButton:true})
             let email=GetEmail()
-            const res= await axios.get(`/api/v1/VerifyLogin/${email}/${otp}`)
+            const res= await axios.get(`${window.location.origin}/api/v1/VerifyLogin/${email}/${otp}`)
             set({isSubmitButton:false})
             return res.data['status']==='success';
         },
@@ -47,7 +47,7 @@ const UserStore=create((set)=>({
         },
         UserLogoutRequest:async ()=>{
             set({isSubmitButton:true})
-            const res= await axios.get(`/api/v1/UserLogout`)
+            const res= await axios.get(`${window.location.origin}/api/v1/UserLogout`)
             set({isSubmitButton:false})
             return res.data['status']==='success';
         },
@@ -70,7 +70,7 @@ const UserStore=create((set)=>({
         },
         UserProfileRequest:async ()=>{
             try{
-                const res=await axios.get(`/api/v1/ReadProfile`)
+                const res=await axios.get(`${window.location.origin}/api/v1/ReadProfile`)
                 set({ProfileData:res.data['data'][0] || {data:"a"}})
                 return res.data['status']==='success';
             }catch (e) {
@@ -88,7 +88,7 @@ const UserStore=create((set)=>({
         ProfileDataOnSave:async (ProfileData)=>{
             try{
                 set({isSubmitButton:true})
-                const res=await axios.post(`/api/v1/CreateProfile`,ProfileData)
+                const res=await axios.post(`${window.location.origin}/api/v1/CreateProfile`,ProfileData)
                 set({isSubmitButton:false})
                 return res.data['status']==='success';
             }catch (e) {

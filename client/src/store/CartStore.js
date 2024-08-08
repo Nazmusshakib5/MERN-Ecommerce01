@@ -21,7 +21,7 @@ const CartStore=create((set)=>({
                 set({isCartButton:true})
                 Cart.productID=productId;
                 Cart.qty=quantity;
-                let res=await axios.post(`/api/v1/SaveCartList`,Cart)
+                let res=await axios.post(`${window.location.origin}/api/v1/SaveCartList`,Cart)
                 set({isCartButton:false})
                 return res.data['status']==='success';
             }catch (e) {
@@ -33,7 +33,7 @@ const CartStore=create((set)=>({
         CartCount:0,
         ReadCartListRequest:async ()=>{
             try {
-                let res=await axios.get(`/api/v1/ReadCartList`)
+                let res=await axios.get(`${window.location.origin}/api/v1/ReadCartList`)
                 set({CartList:res.data['data']})
                 set({CartCount:res.data['data'].length})
                 return res.data['status']==='success';
@@ -47,7 +47,7 @@ const CartStore=create((set)=>({
         Payable:0,
         CalculateCartRequest:async ()=>{
             try {
-                let res=await axios.get(`/api/v1/ReadCartList`)
+                let res=await axios.get(`${window.location.origin}/api/v1/ReadCartList`)
                 let total=0
                 res.data['data'].forEach((item)=>{
                     if(item['WishProduct']['discount']){
@@ -67,7 +67,7 @@ const CartStore=create((set)=>({
 
         RemoveCartListRequest:async (productID)=>{
             try {
-                let res=await axios.post(`/api/v1/RemoveCartList`,{productID:productID})
+                let res=await axios.post(`${window.location.origin}/api/v1/RemoveCartList`,{productID:productID})
                 return res.data['status']==='success';
             }catch (e) {
                 UnAuthorized(e.response.status)
@@ -77,7 +77,7 @@ const CartStore=create((set)=>({
         CrateInvoiceRequest:async ()=>{
             try {
                 set({isCartButton:true})
-                let res=await axios.get(`/api/v1/CreateInvoice`)
+                let res=await axios.get(`${window.location.origin}/api/v1/CreateInvoice`)
                 set({isCartButton:false})
                 window.location.href=res.data['data']['GatewayPageURL']
             }catch (e) {
@@ -89,7 +89,7 @@ const CartStore=create((set)=>({
         InvoiceList:null,
         InvoiceListRequest:async ()=>{
             try {
-                let res=await axios.get(`/api/v1/InvoiceList`)
+                let res=await axios.get(`${window.location.origin}/api/v1/InvoiceList`)
                 set({InvoiceList:res.data['data']})
             }catch (e) {
                 UnAuthorized(e.response.status)
@@ -100,7 +100,7 @@ const CartStore=create((set)=>({
         InvoiceProductList:null,
         InvoiceProductListRequest:async (invoiceID)=>{
             try {
-                let res=await axios.get(`/api/v1/InvoiceProductList/${invoiceID}`)
+                let res=await axios.get(`${window.location.origin}/api/v1/InvoiceProductList/${invoiceID}`)
                 set({InvoiceProductList:res.data['data']})
             }catch (e) {
                 UnAuthorized(e.response.status)

@@ -4,7 +4,7 @@ import axios from 'axios'
 const ProductStore=create((set)=>({
     BrandList:null,
     BrandListRequest:async ()=>{
-        const res= await axios.get(`/api/v1/ProductBrandList`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductBrandList`)
         if(res.data['status']==='success'){
             set({BrandList:res.data['data']})
         }
@@ -12,7 +12,7 @@ const ProductStore=create((set)=>({
 
     CategoryList:null,
     CategoryListRequest:async ()=>{
-        const res= await axios.get(`/api/v1/ProductCategoryList`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductCategoryList`)
         if(res.data['status']==='success'){
             set({CategoryList:res.data['data']})
         }
@@ -20,7 +20,7 @@ const ProductStore=create((set)=>({
 
     SliderList:null,
     SliderListRequest:async ()=>{
-        const res= await axios.get(`/api/v1/ProductSliderList`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductSliderList`)
         if(res.data['status']==='success'){
             set({SliderList:res.data['data']})
         }
@@ -28,7 +28,7 @@ const ProductStore=create((set)=>({
 
     ProductListByRemark:null,
     ProductListByRemarkRequest:async (Remark)=>{
-        const res= await axios.get(`/api/v1/ProductListByRemark/${Remark}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductListByRemark/${Remark}`)
         if(res.data['status']==='success'){
             set({ProductListByRemark:res.data['data']})
         }
@@ -36,25 +36,25 @@ const ProductStore=create((set)=>({
 
     ProductLists:null,
     ProductListByBrandRequest:async (BrandId)=>{
-        const res= await axios.get(`/api/v1/ProductListByBrand/${BrandId}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductListByBrand/${BrandId}`)
         if(res.data['status']==='success'){
             set({ProductLists:res.data['data']})
         }
     },
     ProductListByCategoryRequest:async (CategoryId)=>{
-        const res= await axios.get(`/api/v1/ProductListByCategory/${CategoryId}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductListByCategory/${CategoryId}`)
         if(res.data['status']==='success'){
             set({ProductLists:res.data['data']})
         }
     },
     ProductListByKeywordRequest:async (Keyword)=>{
-        const res= await axios.get(`/api/v1/ProductListByKeyword/${Keyword}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductListByKeyword/${Keyword}`)
         if(res.data['status']==='success'){
             set({ProductLists:res.data['data']})
         }
     },
     ProductListByFiltering:async (filter)=>{
-        const res= await axios.post(`/api/v1/ProductFilterList`,filter)
+        const res= await axios.post(`${window.location.origin}/api/v1/ProductFilterList`,filter)
         if(res.data['status']==='success'){
             set({ProductLists:res.data['data']})
         }
@@ -62,7 +62,7 @@ const ProductStore=create((set)=>({
     details:null,
     ProductDetailsList:async (id)=>{
         set({details:null})
-        const res= await axios.get(`/api/v1/ProductDetails/${id}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductDetails/${id}`)
         if(res.data['status']==='success'){
             set({details:res.data['data']})
         }
@@ -70,7 +70,7 @@ const ProductStore=create((set)=>({
     reviews:null,
     ProductReviewsList:async (id)=>{
         set({reviews:null})
-        const res= await axios.get(`/api/v1/ProductReviewList/${id}`)
+        const res= await axios.get(`${window.location.origin}/api/v1/ProductReviewList/${id}`)
         if(res.data['status']==='success'){
             set({reviews:res.data['data']})
         }

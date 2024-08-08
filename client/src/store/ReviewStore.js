@@ -16,7 +16,7 @@ const ReviewStore=create((set)=>({
     ReviewCreateRequest:async (bodyData)=>{
         try {
             set({isReviewBtn:true})
-            let res=await axios.post(`/api/v1/CreateReview`,bodyData)
+            let res=await axios.post(`${window.location.origin}/api/v1/CreateReview`,bodyData)
             set({isReviewBtn:false})
             return res.data['status']==='success';
         }catch (e) {
